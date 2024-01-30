@@ -108,6 +108,32 @@ public class IntQueueTest {
             }
         }
     }
+    @Test
+    public void testEnsureCapacity() {
+        // Fill the queue to capacity
+        for (int i = 0; i < 10; i++) {
+            mQueue.enqueue(i);
+        }
+        
+        // Add one more element
+        mQueue.enqueue(10);
+        
+        // Check that the queue has been resized
+        assertTrue(mQueue.size() == 11);
+        
+        // the first element should be 0
+        assertTrue(mQueue.peek() == 0); 
+        
+        
+        // Check that the queue still behaves correctly
+        for (int i = 0; i < 11; i++) {
+            Integer dequeueValue = mQueue.dequeue();
+            assertEquals(Integer.valueOf(i), dequeueValue);
+        }
+        
+        // Check that the queue is empty
+        assertTrue(mQueue.isEmpty());
+    }
 
 
 }
