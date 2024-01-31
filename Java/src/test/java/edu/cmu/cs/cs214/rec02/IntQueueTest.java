@@ -135,5 +135,45 @@ public class IntQueueTest {
         assertTrue(mQueue.isEmpty());
     }
 
+    @Test
+    public void testDequeueEmptyQueue() {
+        assertEquals(null, mQueue.dequeue());
+    }
+
+    @Test
+    public void testClear() {
+        for (int i = 0; i < testList.size(); i++) {
+            mQueue.enqueue(testList.get(i));
+        }
+        mQueue.clear();
+        assertTrue(mQueue.isEmpty());
+    }
+
+    @Test
+    public void testCopyAfterEnsureCapacity() {
+        ArrayIntQueue queue = new ArrayIntQueue();
+
+        // Fill the queue to capacity and move head
+        for (int i = 0; i < 10; i++) {
+            queue.enqueue(i);
+        }
+        // Dequeue 5 elements and move head
+        for (int i = 0; i < 5; i++) {
+            queue.dequeue();
+        }
+
+        // Add more element
+        for (int i = 10; i < 20; i++) {
+            queue.enqueue(i);
+        }
+
+    
+        // It should be[5, 6, 7, 8, 9, 10, ..., 19]
+        for (int expected = 5; expected < 20; expected++) {
+            assertEquals(Integer.valueOf(expected), queue.dequeue());
+        }
+    }
+
+
 
 }
